@@ -16,7 +16,6 @@ CreateThread(function()
 				SetControlContext(2, 0)
 				IsAnimal = false
 			else
-				SetControlContext(2, `OnMount`)
 				IsAnimal = true
 			end
 
@@ -31,6 +30,7 @@ end)
 CreateThread(function()
 	while true do
 		if IsAnimal then
+			SetControlContext(2, `OnMount`)
 			DisableFirstPersonCamThisFrame()
 		end
 
