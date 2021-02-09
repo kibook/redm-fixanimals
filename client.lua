@@ -16,6 +16,8 @@ CreateThread(function()
 				SetControlContext(2, 0)
 				IsAnimal = false
 			else
+				-- Prevent animal peds from climbing on ladders, as this crashes the game
+				SetPedConfigFlag(ped, 43, true)
 				IsAnimal = true
 			end
 
