@@ -4,8 +4,6 @@ Config.AttackTypes = {
 	{
 		models = {
 			`A_C_Alligator_01`,
-			`A_C_Alligator_02`,
-			`A_C_Alligator_03`,
 			`MP_A_C_Alligator_01`
 		},
 		animation = {
@@ -13,6 +11,18 @@ Config.AttackTypes = {
 			name = "attack"
 		},
 		radius = 2.5,
+		force = 2.0,
+		damage = 25
+	},
+	{
+		models = {
+			`A_C_Alligator_02`
+		},
+		animation = {
+			dict = "amb_creatures_reptile@gator_giant@nip_attack",
+			name = "nip"
+		},
+		radius = 3.0,
 		force = 2.0,
 		damage = 25
 	},
@@ -108,6 +118,30 @@ Config.AttackTypes = {
 		radius = 2.5,
 		force = 2.0,
 		damage = 20
+	},
+	{
+		models = {
+			`A_C_Muskrat_01`
+		},
+		animation = {
+			dict = "creatures_mammal@muskrat@melee",
+			name = "nip_attack"
+		},
+		radius = 2.0,
+		force = 1.0,
+		damage = 15
+	},
+	{
+		models = {
+			`A_C_Raccoon_01`
+		},
+		animation = {
+			dict = "creatures_mammal@raccoon@melee",
+			name = "nip_attack"
+		},
+		radius = 2.0,
+		force = 1.0,
+		damage = 15
 	},
 	{
 		models = {

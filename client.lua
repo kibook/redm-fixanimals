@@ -116,6 +116,10 @@ function GetPlayerServerIdFromPed(ped)
 end
 
 function Attack()
+	if IsAttacking then
+		return
+	end
+
 	local playerPed = PlayerPedId()
 
 	if IsPedDeadOrDying(playerPed) or IsPedRagdoll(playerPed) then
@@ -142,7 +146,7 @@ function Attack()
 				ApplyAttackToTarget(playerPed, target, attackType)
 			end
 
-			SetTimeout(Config.AttackCooldown, function()
+			Citizen.SetTimeout(Config.AttackCooldown, function()
 				IsAttacking = false
 			end)
 		end
@@ -168,8 +172,8 @@ AddEventHandler("fixanimals:attack", function(attacker, entity)
 	end
 end)
 
--- Change control context to OnMount when an animal ped to fix controls
-CreateThread(function()
+-- Detect change between human and animal ped
+Citizen.CreateThread(function()
 	local lastPed = 0
 
 	while true do
@@ -177,6 +181,7 @@ CreateThread(function()
 
 		if ped ~= lastPed then
 			if IsPedHuman(ped) then
+				-- Reset control context
 				SetControlContext(2, 0)
 				IsAnimal = false
 			else
@@ -188,11 +193,12 @@ CreateThread(function()
 			lastPed = ped
 		end
 
-		Wait(1000)
+		Citizen.Wait(1000)
 	end
 end)
 
-CreateThread(function()
+-- Handle special animal ped workarounds
+Citizen.CreateThread(function()
 	while true do
 		if IsAnimal then
 			-- Change control context
@@ -202,7 +208,7 @@ CreateThread(function()
 			DisableFirstPersonCamThisFrame()
 
 			-- Allow animals that can't normally attack to attack
-			if not IsAttacking and IsControlJustPressed(0, `INPUT_ATTACK`) then
+			if IsControlJustPressed(0, `INPUT_ATTACK`) then
 				Attack()
 			end
 
@@ -212,6 +218,6 @@ CreateThread(function()
 			end
 		end
 
-		Wait(0)
+		Citizen.Wait(0)
 	end
 end)
